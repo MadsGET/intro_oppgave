@@ -42,13 +42,17 @@
 
     <p>Position  : <div0 id="position"> -1 </div0></p>
     <p>Neighbours: <div0 id= "neighbours">[-1, -1, -1, -1]</div0></p>
-    <p>Movement: <div0 id= 'movement'>0</div0></p>
+    <p>Movement: <div0 id= "movement">0</div0></p>
+    <p>Test: <div0 id="test"> </div></p>
 
     <script>   
 
-    // Blank position within the board.
+    // Blank position within the board, and its neighbours.
     var blankIndex = 0;
     var blankNeighbours = [-1, -1, -1, -1];
+
+    // Game modifiers
+    var useRandomShuffle = false;
 
     // Execute on document loaded.
     OnStart();
@@ -56,6 +60,26 @@
     // Start is called when the page is loaded.
     function OnStart()
     {
+        // Positions yet to be shuffled in.
+        var positions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+
+        // Fisher Yates Shuffle Method
+        for(var i = 0; i < positions.length; i++)
+        {
+            randomSelection = Math.floor(Math.random() * positions.length);
+
+            if(randomSelection != positions[i])
+            {
+                alert(randomSelection + " : " + positions[i]);
+                
+                positions[randomSelection] = parseInt(positions[i]); 
+                positions[i] = randomSelection;
+			}
+		}
+
+                    
+            alert(positions);
+
         // Update neighbours of blank.
         UpdateNeighbours();
 	}
@@ -102,8 +126,7 @@
         // Update Debug Info on movement.
         document.getElementById("neighbours").innerHTML = blankNeighbours;
         document.getElementById("position").innerHTML = blankIndex;
-        document.getElementById("movement").innerHTML += parseInt(document.getElementById("movement").innerHTML);
-
+        document.getElementById("movement").innerHTML = parseInt(document.getElementById("movement").innerHTML) + 1;
 	}
     </script>
 
