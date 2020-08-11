@@ -28,19 +28,21 @@
     </style>
 </head>
 <body> 
-    <div id="6" onClick="OnSelection(this);">6</div>
-    <div id="7" onClick="OnSelection(this);">7</div>
-    <div id="8" onClick="OnSelection(this);">8</div>
+    <div id="0" onClick="OnSelection(this);">0</div>
+    <div id="1" onClick="OnSelection(this);">1</div>
+    <div id="2" onClick="OnSelection(this);">2</div>
 
     <div id="3" onClick="OnSelection(this);" class = "firstElement">3</div>
     <div id="4" onClick="OnSelection(this);">4</div>
     <div id="5" onClick="OnSelection(this);">5</div>
 
-    <div id="0" onClick="OnSelection(this);" class = "firstElement">0</div>
-    <div id="1" onClick="OnSelection(this);">1</div>
-    <div id="2" onClick="OnSelection(this);">2</div>
+    <div id="6" onClick="OnSelection(this);" class = "firstElement">6</div>
+    <div id="7" onClick="OnSelection(this);">7</div>
+    <div id="8" onClick="OnSelection(this);">8</div>
 
-    <p>Movement: <div1 id= 'counter'>0</div1></p>
+    <p>Position  : <div0 id="position"> -1 </div0></p>
+    <p>Neighbours: <div0 id= "neighbours">[-1, -1, -1, -1]</div0></p>
+    <p>Movement: <div0 id= 'counter'>0</div0></p>
 
     <script>   
 
@@ -61,19 +63,47 @@
     // On element click
     function OnSelection(element)
     {
-        alert("Clicked: " + element.innerHTML)
-        // Compare if valid move
+        for(var i = 0; i < blankNeighbours.length; i++)
+        {
+            // If selection is a neighbour of blank.
+            if(element.id == blankNeighbours[i])
+            {
+                // Set the current blank square number to selected element number.
+                document.getElementById(blankIndex).innerHTML = element.innerHTML;
+
+                // Update blank number to the new element index number.
+                blankIndex = element.id;
+
+                // Set the new blank number to blank.
+                document.getElementById(blankIndex).innerHTML = 0;
+
+                // Update neigbhour positions. // Ny position her?
+                UpdateNeighbours();
+
+                // Break out of loop.
+                break;
+			}
+		}
+
+        // Win check
 	}
 
     // Updates the neighbour positions of blank.
     function UpdateNeighbours()
     {
-        // Up
-        // left
-        // Right
-        // Down
-	}
+        // Up and down
+        blankNeighbours[0] = parseInt(blankIndex) - 3;
+        blankNeighbours[1] = parseInt(blankIndex) + 3;
 
+        // Left and right
+        blankNeighbours[2] = parseInt(blankIndex) - 1;
+        blankNeighbours[3] = parseInt(blankIndex) + 1;
+
+        // Update Debug Info on movement.
+        document.getElementById("neighbours").innerHTML = blankNeighbours;
+        document.getElementById("position").innerHTML = blankIndex;
+
+	}
     </script>
 
 </body>
