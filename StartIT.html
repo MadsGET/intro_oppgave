@@ -28,17 +28,17 @@
     </style>
 </head>
 <body> 
-    <div id="0" onClick="OnSelection(this, '1', '3');">7</div>
-    <div id="1" onClick="OnSelection(this, '0', '4', '2');">2</div>
-    <div id="2" onClick="OnSelection(this, '1', '5');">1</div>
+    <div id="0" onClick="OnSelection(this, '1', '3');">0</div>
+    <div id="1" onClick="OnSelection(this, '0', '4', '2');">0</div>
+    <div id="2" onClick="OnSelection(this, '1', '5');">0</div>
 
-    <div id="3" onClick="OnSelection(this, '0', '4', '6');" class = "firstElement">4</div>
-    <div id="4" onClick="OnSelection(this, '1', '3', '5', '7');"></div>
-    <div id="5" onClick="OnSelection(this, '2', '4', '8');">5</div>
+    <div id="3" onClick="OnSelection(this, '0', '4', '6');" class = "firstElement">0</div>
+    <div id="4" onClick="OnSelection(this, '1', '3', '5', '7');">0</div>
+    <div id="5" onClick="OnSelection(this, '2', '4', '8');">0</div>
 
-    <div id="6" onClick="OnSelection(this, '3', '7');" class = "firstElement">6</div>
-    <div id="7" onClick="OnSelection(this, '6', '4', '8');">3</div>
-    <div id="8" onClick="OnSelection(this, '7', '5');">8</div>
+    <div id="6" onClick="OnSelection(this, '3', '7');" class = "firstElement">0</div>
+    <div id="7" onClick="OnSelection(this, '6', '4', '8');">0</div>
+    <div id="8" onClick="OnSelection(this, '7', '5');">0</div>
 
     <p>Movement: <div1 id= 'counter'>0</div1></p>
 
@@ -50,11 +50,26 @@
     // On document load
     function OnLoadDocument()
     {
-        var numbers = [99, 1, 2, 3, 4, 5, 6, 7, 8];
+        var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-        for(var i = 0; i < 9; i++)
+        alert("Length: " + numbers.length);
+
+        for(var i = 0; i < numbers.length; i++)
         {
-           document.getElementById(i).innerHTML = "" + numbers[0];
+           // Get splice value.
+           var spliceValue = numbers[parseInt(Math.random() * numbers.length)];
+
+           // Set inner HTML text.
+           document.getElementById(i).innerHTML = (spliceValue == 0)? '' : spliceValue;
+
+           // Splice array.
+           numbers.splice(spliceValue, 1);
+		}
+
+        //alert("Length: " + numbers.length);
+        for(var x = 0; x < numbers.length; x++)
+        {
+           
 		}
 	}
 
