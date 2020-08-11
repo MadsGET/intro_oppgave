@@ -28,106 +28,50 @@
     </style>
 </head>
 <body> 
-    <div id="0" onClick="OnSelection(this, '1', '3');">0</div>
-    <div id="1" onClick="OnSelection(this, '0', '4', '2');">0</div>
-    <div id="2" onClick="OnSelection(this, '1', '5');">0</div>
+    <div id="6" onClick="OnSelection(this);">6</div>
+    <div id="7" onClick="OnSelection(this);">7</div>
+    <div id="8" onClick="OnSelection(this);">8</div>
 
-    <div id="3" onClick="OnSelection(this, '0', '4', '6');" class = "firstElement">0</div>
-    <div id="4" onClick="OnSelection(this, '1', '3', '5', '7');">0</div>
-    <div id="5" onClick="OnSelection(this, '2', '4', '8');">0</div>
+    <div id="3" onClick="OnSelection(this);" class = "firstElement">3</div>
+    <div id="4" onClick="OnSelection(this);">4</div>
+    <div id="5" onClick="OnSelection(this);">5</div>
 
-    <div id="6" onClick="OnSelection(this, '3', '7');" class = "firstElement">0</div>
-    <div id="7" onClick="OnSelection(this, '6', '4', '8');">0</div>
-    <div id="8" onClick="OnSelection(this, '7', '5');">0</div>
+    <div id="0" onClick="OnSelection(this);" class = "firstElement">0</div>
+    <div id="1" onClick="OnSelection(this);">1</div>
+    <div id="2" onClick="OnSelection(this);">2</div>
 
     <p>Movement: <div1 id= 'counter'>0</div1></p>
 
     <script>   
-    
-    // On document loaded.
-    OnLoadDocument();
 
-    // On document load
-    function OnLoadDocument()
+    // Blank position within the board.
+    var blankIndex = 0;
+    var blankNeighbours = [-1, -1, -1, -1];
+
+    // Execute on document loaded.
+    OnStart();
+
+    // Start is called when the page is loaded.
+    function OnStart()
     {
-        var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-
-        alert("Length: " + numbers.length);
-
-        for(var i = 0; i < numbers.length; i++)
-        {
-           // Get splice value.
-           var spliceValue = numbers[parseInt(Math.random() * numbers.length)];
-
-           // Set inner HTML text.
-           document.getElementById(i).innerHTML = (spliceValue == 0)? '' : spliceValue;
-
-           // Splice array.
-           numbers.splice(spliceValue, 1);
-		}
-
-        //alert("Length: " + numbers.length);
-        for(var x = 0; x < numbers.length; x++)
-        {
-           
-		}
+        // Update neighbours of blank.
+        UpdateNeighbours();
 	}
 
-    // On Element selection.
-    function OnSelection(selection, neighbour1, neighbour2, neighbour3, neighbour4)
+    // On element click
+    function OnSelection(element)
     {
-        //element.innerHTML = document.getElementById(neighbour1).innerHTML;
-        CompareElement(selection, neighbour1);      
-        CompareElement(selection, neighbour2);      
-        CompareElement(selection, neighbour3);        
-        CompareElement(selection, neighbour4);
-
-        // Check game win condition
-        CheckWinCondition();
+        alert("Clicked: " + element.innerHTML)
+        // Compare if valid move
 	}
 
-    // Compares and switches element text when a blank is found.
-    function CompareElement(from, target)
+    // Updates the neighbour positions of blank.
+    function UpdateNeighbours()
     {
-        // Check if target is null.
-        if(target == null){
-            return;  
-		}
-
-        // Set element B to a <div> variable.
-        target = document.getElementById(target);
-
-        // If element B is blank.
-        if(target.innerHTML == '')
-        {
-            // Switch element text.
-            target.innerHTML = from.innerHTML;
-            from.innerHTML = '';
-            
-            // Increase move counter.
-            var counter = Number(document.getElementById('counter').innerHTML);
-            document.getElementById('counter').innerHTML = counter +1;
-		}
-	}
-
-    // Checks if the player has solved the puzzle.
-    function CheckWinCondition()
-    {
-        var i;
-        var answer = 0;
-        for(i = 0; i < 8; i++)
-        {
-            if(document.getElementById(i).innerHTML == i+1) 
-            {
-                answer++;
-			}
-		};
-
-        // On the eight numbers are in the right order game is won.
-        if(answer == 8)
-        {
-            window.alert("Puzzle Solved!");
-		}
+        // Up
+        // left
+        // Right
+        // Down
 	}
 
     </script>
