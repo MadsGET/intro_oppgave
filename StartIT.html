@@ -27,7 +27,7 @@
 		}
     </style>
 </head>
-<body onload="OnLoadDocument()"> 
+<body> 
     <div id="0" onClick="OnSelection(this, '1', '3');">7</div>
     <div id="1" onClick="OnSelection(this, '0', '4', '2');">2</div>
     <div id="2" onClick="OnSelection(this, '1', '5');">1</div>
@@ -43,15 +43,18 @@
     <p>Movement: <div1 id= 'counter'>0</div1></p>
 
     <script>   
+    
+    // On document loaded.
+    OnLoadDocument();
 
     // On document load
     function OnLoadDocument()
     {
-        var numbers = new Array[99, 1, 2, 3, 4, 5, 6, 7, 8];
+        var numbers = [99, 1, 2, 3, 4, 5, 6, 7, 8];
 
         for(var i = 0; i < 9; i++)
         {
-           document.getElementById(i).innerHTML = numbers[0];
+           document.getElementById(i).innerHTML = "" + numbers[0];
 		}
 	}
 
