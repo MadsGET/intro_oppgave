@@ -136,7 +136,7 @@
         {
             // If selection is a neighbour of blank.
             if(element.id == blankNeighbours[i])
-            {
+            {                
                 // Set the current blank square number to selected element number.
                 document.getElementById(blankIndex).innerHTML = element.innerHTML;
 
@@ -149,12 +149,32 @@
                 // Update neigbhour positions.
                 UpdateNeighbours();
 
+                // On blank placed in final position
+                if(blankIndex == 8)
+                {
+                    // Perform win check.
+                    WinCheck();
+				}
+
                 // Break out of loop.
                 break;
 			}
 		}
+	}
 
-        // Win check
+    // Performs a win check
+    function WinCheck()
+    {
+        for(var i = 0; i < 8; i++)
+        {
+            // If placement does not match the grid index.
+            if(document.getElementById(i).innerHTML != i + 1)
+            {
+                return;
+		    }
+		}
+
+        alert("Win!");
 	}
 
     // Updates the neighbour positions of blank.
