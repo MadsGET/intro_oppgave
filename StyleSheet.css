@@ -1,0 +1,21 @@
+﻿body
+{
+}
+
+div
+{
+    color:blue;
+    background-color: lightblue;
+    padding: 10px;
+    margin: 5px;
+    border: solid green 2px;
+    width: 32px;
+    height: 32px;
+    float: left;
+}
+
+div.firstElement
+{
+    clear: left;
+}
+        
