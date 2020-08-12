@@ -63,24 +63,33 @@
         // Positions yet to be shuffled in.
         var positions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
 
-        // Fisher Yates Shuffle Method
+        //
         for(var i = 0; i < positions.length; i++)
         {
             randomSelection = Math.floor(Math.random() * positions.length);
 
-            if(positions[randomSelection] !== positions[i])
+            if(positions[randomSelection] != positions[i])
             {
                 alert(randomSelection + " : " + positions[i]);
                 
-                positions[randomSelection] = parseInt(positions[i]); 
-                positions[i] = parseInt(randomSelection);
-			}
+                // TRACK 0
 
-            document.getElementById(i).innerHTML = positions[i];
+                var from = positions[i];
+                var to = positions[randomSelection];
+
+                positions[randomSelection] = from;
+                positions[i] = to;
+			}
+		}
+
+        // 
+        for(var j = 0; j < positions.length; j++)
+        {
+            document.getElementById(j).innerHTML = positions[j];
 		}
 
                     
-            alert(positions);
+        alert(positions);
 
         // Update neighbours of blank.
         UpdateNeighbours();
