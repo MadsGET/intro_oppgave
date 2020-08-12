@@ -68,13 +68,15 @@
         {
             randomSelection = Math.floor(Math.random() * positions.length);
 
-            if(randomSelection != positions[i])
+            if(positions[randomSelection] !== positions[i])
             {
                 alert(randomSelection + " : " + positions[i]);
                 
                 positions[randomSelection] = parseInt(positions[i]); 
-                positions[i] = randomSelection;
+                positions[i] = parseInt(randomSelection);
 			}
+
+            document.getElementById(i).innerHTML = positions[i];
 		}
 
                     
