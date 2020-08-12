@@ -40,14 +40,17 @@
     <!--<p>Position  : <div0 id="position"> -1 </div0></p>-->
     <!--<p>Neighbours: <div0 id= "neighbours">[-1, -1, -1, -1]</div0></p>-->
     <p>Movement: <div0 id="movement">-1</div0></p>
-    <p>Timer: <div0 id="time">-1</div></p>
+    <p>Timer: <div0 id="time">55</div></p>
 
     <script>   
 
     // Blank position within the board, and its neighbours.
     var blankIndex = 0;
     var blankNeighbours = [-1, -1, -1, -1];
-    var timer = setTimeout(Timer(), 1000);
+
+    // Timer variables
+    var useMinuteDisplay = false;
+    var counter = setTimeout(Timer(), 1000);
 
     // Game modifiers
     var useRandomShuffle = true;
@@ -58,12 +61,26 @@
     // Game timer, called on variable creation.
     function Timer()
     {
-       // Add a tick to the timer
-       var timeCount = document.getElementById("time");
-       timeCount.innerHTML = parseInt(timeCount.innerHTML) + 1;
+        // Get element, time count.
+        var element = document.getElementById("time");
+        var timeCount = parseInt(element.innerHTML);     
 
-       // Set timeout until next tick.
-       timer = setTimeout(Timer, 1000);
+        // Use minute display check
+        if(!useMinuteDisplay && (timeCount + 1) == 60)
+        {
+            timeCount = 0;
+            useMinuteDisplay = true;
+		}
+
+        // Set time display.
+        var timeString = (!useMinuteDisplay)? " Seconds" : " Minutes";
+        var timeToAdd = (!useMinuteDisplay)? 1000 : 60000;
+        
+        // Update counter string
+        element.innerHTML = timeCount + 1 + timeString;
+
+        // Set next timeout in milliseconds
+        timer = setTimeout(Timer, timeToAdd);
 	}
 
     // Start is called when the page is loaded.
