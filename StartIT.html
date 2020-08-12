@@ -20,11 +20,8 @@
         {
           clear: left;
 		}
+        
 
-        .selected
-        {
-            border: dashed orange 5px;
-		}
     </style>
 </head>
 <body> 
@@ -40,56 +37,71 @@
     <div id="7" onClick="OnSelection(this);">7</div>
     <div id="8" onClick="OnSelection(this);">8</div>
 
-    <p>Position  : <div0 id="position"> -1 </div0></p>
-    <p>Neighbours: <div0 id= "neighbours">[-1, -1, -1, -1]</div0></p>
-    <p>Movement: <div0 id= "movement">0</div0></p>
-    <p>Test: <div0 id="test"> </div></p>
+    <!--<p>Position  : <div0 id="position"> -1 </div0></p>-->
+    <!--<p>Neighbours: <div0 id= "neighbours">[-1, -1, -1, -1]</div0></p>-->
+    <p>Movement: <div0 id="movement">-1</div0></p>
+    <p>Timer: <div0 id="time">-1</div></p>
 
     <script>   
 
     // Blank position within the board, and its neighbours.
     var blankIndex = 0;
     var blankNeighbours = [-1, -1, -1, -1];
+    var timer = setTimeout(Timer(), 1000);
 
     // Game modifiers
-    var useRandomShuffle = false;
+    var useRandomShuffle = true;
 
     // Execute on document loaded.
     OnStart();
+
+    function Timer()
+    {
+       document.getElementById("time").innerHTML = parseInt(document.getElementById("time").innerHTML) + 1;
+       timer = setTimeout(Timer, 1000);
+	}
 
     // Start is called when the page is loaded.
     function OnStart()
     {
         // Positions yet to be shuffled in.
-        var positions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+        var positions = [1, 2, 3, 4, 5, 6, 7, '', 8];
 
-        //
-        for(var i = 0; i < positions.length; i++)
+        // On using random shuffle
+        if(!useRandomShuffle)
         {
-            randomSelection = Math.floor(Math.random() * positions.length);
-
-            if(positions[randomSelection] != positions[i])
+            // Loop through each position and shuffle them.
+            for(var i = 0; i < positions.length; i++)
             {
-                alert(randomSelection + " : " + positions[i]);
-                
-                // TRACK 0
+                // Random selection of positions array.
+                randomSelection = Math.floor(Math.random() * positions.length);
 
-                var from = positions[i];
-                var to = positions[randomSelection];
+                // If random selection is not equal to current index
+                if(positions[randomSelection] != positions[i])
+                {
+                    // Save from and to position
+                    var from = positions[i];
+                    var to = positions[randomSelection];
 
-                positions[randomSelection] = from;
-                positions[i] = to;
-			}
+                    // Swap positions
+                    positions[randomSelection] = from;
+                    positions[i] = to;
+			    }
+		    }
 		}
 
-        // 
+        // Set each position
         for(var j = 0; j < positions.length; j++)
         {
+            // Set numbers for each index in the HTML file
             document.getElementById(j).innerHTML = positions[j];
-		}
 
-                    
-        alert(positions);
+            // If index is zero then set blankIndex
+            if(positions[j] == 0)
+            {
+                blankIndex = j;
+			}
+		}
 
         // Update neighbours of blank.
         UpdateNeighbours();
@@ -110,7 +122,7 @@
                 blankIndex = element.id;
 
                 // Set the new blank number to blank.
-                document.getElementById(blankIndex).innerHTML = 0;
+                document.getElementById(blankIndex).innerHTML = '';
 
                 // Update neigbhour positions.
                 UpdateNeighbours();
@@ -135,8 +147,8 @@
         blankNeighbours[3] = parseInt(blankIndex) + 1;
 
         // Update Debug Info on movement.
-        document.getElementById("neighbours").innerHTML = blankNeighbours;
-        document.getElementById("position").innerHTML = blankIndex;
+        //document.getElementById("neighbours").innerHTML = blankNeighbours;
+        //document.getElementById("position").innerHTML = blankIndex;
         document.getElementById("movement").innerHTML = parseInt(document.getElementById("movement").innerHTML) + 1;
 	}
     </script>
