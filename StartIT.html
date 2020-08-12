@@ -55,9 +55,14 @@
     // Execute on document loaded.
     OnStart();
 
+    // Game timer, called on variable creation.
     function Timer()
     {
-       document.getElementById("time").innerHTML = parseInt(document.getElementById("time").innerHTML) + 1;
+       // Add a tick to the timer
+       var timeCount = document.getElementById("time");
+       timeCount.innerHTML = parseInt(timeCount.innerHTML) + 1;
+
+       // Set timeout until next tick.
        timer = setTimeout(Timer, 1000);
 	}
 
