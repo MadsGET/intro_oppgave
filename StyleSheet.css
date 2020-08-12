@@ -1,21 +1,49 @@
 ﻿body
 {
+    background-color: brown;
 }
 
-div
+.game-container
 {
-    color:blue;
-    background-color: lightblue;
-    padding: 10px;
-    margin: 5px;
-    border: solid green 2px;
-    width: 32px;
-    height: 32px;
-    float: left;
+    border: 2px solid black;
+    margin: auto;
+    margin-top: 5%;
+    height: 50%;
+    width: 75%;
 }
 
-div.firstElement
+.game-statistics
 {
-    clear: left;
+    background-color:purple;
+    margin: auto;
+    margin-top: 5%;
+    width: 50%;
+    height: 12.5%;
+}
+
+.page
+{
+    background-color: orange;
+    width: 75vh;
+    height: 75vh;
+    margin: auto;
+    margin-top: 12vh;
+    margin-bottom: 12vh;
+    border: 4px solid tomato;
+    border-radius: 10px;
+}
+
+.page-head
+{
+    background-color:purple;
+    margin: auto;
+    margin-top: 2%;
+    width: 50%;
+    height: 12.5%;
+}
+
+.grid-container
+{
+    grid: auto;
 }
         
