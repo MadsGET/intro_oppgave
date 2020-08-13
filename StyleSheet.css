@@ -54,18 +54,6 @@
     width: 95%;
 }
 
-.grid-statistics
-{
-    display: grid;
-    grid-template-rows: 50% 50%;
-    grid-template-columns: 50% 50%;
-}
-
-.grid-item2
-{
-    border: 4px double black;
-}
-
 .grid-item
 {
     background-color: gray;
