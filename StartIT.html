@@ -1,135 +1,14 @@
 ﻿<!DOCTYPE html>
+<header>
 
-<html>
-<head>
-    <title>Start IT!</title>
-    <style>
-        div
-        {
-            color:blue;
-            background-color: lightblue;
-            padding: 10px;
-            margin: 5px;
-            border: solid green 2px;
-            width: 32px;
-            height: 32px;
-            float: left;
-        }
+    <meta charset="utf-8"/>
+    <title>Slider Game</title>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
 
-        div.firstElement
-        {
-          clear: left;
-		}
+</header>
 
-        .selected
-        {
-            border: dashed orange 5px;
-		}
-    </style>
-</head>
-<<<<<<< Updated upstream
-<body> 
-    <div id="0" onClick="OnSelection(this, '1', '3');">7</div>
-    <div id="1" onClick="OnSelection(this, '0', '4', '2');">2</div>
-    <div id="2" onClick="OnSelection(this, '1', '5');">1</div>
-
-    <div id="3" onClick="OnSelection(this, '0', '4', '6');" class = "firstElement">4</div>
-    <div id="4" onClick="OnSelection(this, '1', '3', '5', '7');"></div>
-    <div id="5" onClick="OnSelection(this, '2', '4', '8');">5</div>
-
-    <div id="6" onClick="OnSelection(this, '3', '7');" class = "firstElement">6</div>
-    <div id="7" onClick="OnSelection(this, '6', '4', '8');">3</div>
-    <div id="8" onClick="OnSelection(this, '7', '5');">8</div>
-
-    <script>
-
-    // On Element selection.
-    function OnSelection(selection, neighbour1, neighbour2, neighbour3, neighbour4)
-    {
-        //element.innerHTML = document.getElementById(neighbour1).innerHTML;
-        CompareElement(selection, neighbour1);      
-        CompareElement(selection, neighbour2);      
-        CompareElement(selection, neighbour3);        
-        CompareElement(selection, neighbour4);
-
-        // Check game win condition
-        CheckWinCondition();
-
-	}
-
-    // Compares and switches element text when a blank is found.
-    function CompareElement(from, target)
-    {
-        // Check if target is null.
-        if(target == null){
-            return;  
-		}
-
-        // Set element B to a <div> variable.
-        target = document.getElementById(target);
-
-        // If element B is blank.
-        if(target.innerHTML == '')
-        {
-            // Switch element text.
-            target.innerHTML = from.innerHTML;
-            from.innerHTML = '';
-		}
-	}
-
-    // Checks if the player has solved the puzzle.
-    function CheckWinCondition()
-    {
-        var i;
-        var answer = 0;
-        for(i = 0; i < 8; i++)
-        {
-            if(document.getElementById(i).innerHTML == i+1) 
-            {
-                answer++;
-			}
-		};
-
-        // On the eight numbers are in the right order game is won.
-        if(answer == 8)
-        {
-            window.alert("Puzzle Solved!");
-		}
-	}
-
-    </script>
-=======
-<body onload="OnPageLoaded()"> 
-    
-    <div class="page">
-    
-    <div class="page-head">
-    <h1 style="text-align:center; padding-top: 10%; font-size: 48px;"> Slider Game </h1>
-    </div>
-
-    <div class="game-container"> 
-        <div class="grid-container">
-            <div class="grid-item" id="0">0</div>
-            <div class="grid-item" id="1">1</div>
-            <div class="grid-item" id="2">2</div>
-            <div class="grid-item" id="3">3</div>
-            <div class="grid-item" id="4">4</div>
-            <div class="grid-item" id="5">5</div>
-            <div class="grid-item" id="6">6</div>
-            <div class="grid-item" id="7">7</div>
-            <div class="grid-item" id="8">8</div>
-        </div>
-    </div>
-
-    <div class="game-statistics">
-        <div style="float:left;">Movement: <div id="movement";>-1</div></div>
-        <div style="float:right;">Time: <div id="time">-1</div></div>
-    </div>
-
-    </div>
-
-    <script src="Script.js"></script>
->>>>>>> Stashed changes
-
+<html lang="en-NO">
+<body>
+    test
 </body>
 </html>
