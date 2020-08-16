@@ -1,9 +1,107 @@
 ﻿body
 {
-    margin: 0;
+    background-color: burlywood;
+    height: 1fr;
+    width: 1fr;
     padding: 0;
-    height: 100vh;
-    width: 100vw;
-    background-color: tomato;
+    margin: 0;
 }
-   
+
+div.mainContent
+{
+    display: grid;
+    background-color: rgb(71, 61, 9);
+    background-image: url(image_background.png);
+    background-position: center;
+    border: 8px solid rgb(49, 43, 10);
+    margin-right: auto;
+    margin-left: auto;
+    height: 75vh;
+    width: 40vw;
+
+    grid-template-rows: 1fr 8fr 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: 'header'
+                         'game'
+                         'footer';
+}
+
+div.header
+{
+    grid-area: header;
+    border-bottom: 8px solid;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+div.game
+{
+    grid-area: game;
+}
+
+div.footer
+{
+    display: grid;
+    grid-area: footer;
+    border-top: 8px solid;
+    grid-template-areas: 'time reset move';
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+
+div.header, div.game, div.footer
+{
+    border-color: rgb(49, 43, 10);
+}
+
+
+div.time
+{
+    grid-area: time;
+    border-right: 6px solid;
+}
+
+div.reset
+{
+    grid-area: reset;
+}
+
+div.move
+{
+    grid-area: move;
+    border-left: 6px solid;
+}
+
+div.time, div.reset, div.move
+{
+    border-color: rgb(49, 43, 10);
+}
+
+div.gameContainer
+{
+    height: 95%;
+    width: 95%;
+    margin-top: 1%;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: rgba(0, 0, 0, 0.1);
+    border: 8px solid rgba(0, 0, 0, 0.1);
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap:8px;
+}
+
+div.gameElement
+{
+    box-sizing: border-box;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url(image_chip1.png);
+    text-align: center;
+    height: 1fr;
+    width: 1fr;
+    border: 8px solid  rgba(3, 3, 3, 0.5);
+    border-radius: 5px;
+}
