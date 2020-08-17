@@ -82,6 +82,36 @@
         }
     }      
 
+    // On chip movement.
+    function MoveChip(newPosition)
+    {
+        // Check if selection is a valid neighbour of blank.
+        for(var i = 0; i < blankNeighbours.length; i++)
+        {
+            // If the new index position matches a neighbour.
+            if(newPosition == blankNeighbours[i])
+            {
+                console.log(newPosition);
+                // Swap blank with the new position.
+                SwapBlankPosition(newPosition);
+                continue;
+            }
+        }
+    }
+
+    // Swaps chip positions.
+    function SwapBlankPosition(position)
+    {
+        
+        var to = position;
+
+        chipPositions[blankIndex] = chipPositions[to];
+        chipPositions[to] = chipPositions[blankIndex];
+
+        // Change blank index position.
+        blankIndex = to;
+    }
+
     // Calculates the blank index neighbours.
     function CalculateNeighbours()
     {
@@ -108,6 +138,9 @@
                 }
             }
         }
+
+        // Set blank neighbours to the new neighbours.
+        blankNeighbours = newNeighbours;
     }
 
     // Checks if a chip x position matches another chip.
