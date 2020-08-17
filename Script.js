@@ -2,146 +2,165 @@
     // Blank position within the board, and its neighbours.
     var blankIndex = 0;
     var blankNeighbours = [-1, -1, -1, -1];
+    var chipPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+    var chipRowIndex =  [0, 0, 0, 1, 1, 1, 2, 2, 2]
+    var chipElements = [];
 
     // Timer variables
     var useMinuteDisplay = false;
-    var counter = setTimeout(Timer(), 1000);
+    var timeInSeconds = 0, timeInMinutes = 0;
+    var timerElement;
 
     // Game modifiers
     var useRandomShuffle = true;
 
-    // Game timer, called on variable creation.
-    function Timer()
-    {
-        // Get element, time count.
-        var element = document.getElementById("time");
-        var timeCount = parseInt(element.innerHTML);     
+    // Images
+    var imagePrefix = 'images/chip_', imageFileType = '.png';
+    var images = [];
 
-        // Use minute display check
-        if(!useMinuteDisplay && (timeCount + 1) == 60)
-        {
-            timeCount = 0;
-            useMinuteDisplay = true;
-		}
-
-        // Set time display.
-        var timeString = (!useMinuteDisplay)? " Seconds" : " Minutes";
-        var timeToAdd = (!useMinuteDisplay)? 1000 : 60000;
-        
-        // Update counter string
-        element.innerHTML = timeCount + 1 + timeString;
-
-        // Set next timeout in milliseconds
-        timer = setTimeout(Timer, timeToAdd);
-	}
-
-    // When page is loaded.
+    // On Page Loaded
     function OnPageLoaded()
     {
-        // Positions yet to be shuffled in.
-        var positions = [1, 2, 3, 4, 5, 6, 7, '', 8];
+        // Setup element references
+        timerElement = document.getElementById('timeCount');
 
-        // On using random shuffle
+        // Start time counter
+        setInterval(Timer, 1000);
+
+        // Setup the image array and chip element array.
+        for(var i = 0; i < 9; i++)
+        {
+            // Setup images.
+            images[i] = 'url(' + imagePrefix + i + imageFileType  + ')';
+
+            // Setup chip elements.
+            chipElements[i] = document.getElementById(i);
+        }
+
+        SetupGame();
+    }
+
+    // Game Setup
+    function SetupGame()
+    {
         if(useRandomShuffle)
         {
-            // Loop through each position and shuffle them.
-            for(var i = 0; i < positions.length; i++)
+            for(var i = 0; i < chipPositions.length; i++)
             {
-                // Random selection of positions array.
-                randomSelection = Math.floor(Math.random() * positions.length);
+                // Random selection of chip positions array.
+                var random = Math.floor(Math.random() * chipPositions.length);
 
-                // If random selection is not equal to current index
-                if(positions[randomSelection] != positions[i])
+                // If not the same index, and not the same value.
+                if(random > i && chipPositions[random] != chipPositions[i])
                 {
-                    // Save from and to position
-                    var from = positions[i];
-                    var to = positions[randomSelection];
+                    // Save the chip positions.
+                    var from = chipPositions[i];
+                    var to = chipPositions[random];
 
-                    // Swap positions
-                    positions[randomSelection] = from;
-                    positions[i] = to;
-			    }
-		    }
-		}
-
-        // Set each position
-        for(var j = 0; j < positions.length; j++)
+                    // Swap chip positions.
+                    chipPositions[random] = from;
+                    chipPositions[i] = to;
+                }
+            }
+        }
+        
+        // Loop through each position and set its background image.
+        for(var j = 0; j < chipPositions.length; j++)
         {
-            // Set numbers for each index in the HTML file
-            document.getElementById(j).innerHTML = positions[j];
+            // Set innerHTML to match chip positions.
+            //chipElements[j].innerHTML = chipElements[j].id;
 
-            // If index is zero then set blankIndex
-            if(positions[j] == 0)
+            // Set background image.
+            chipElements[j].style.backgroundImage = images[chipPositions[j]];
+
+            // Set blank index.
+            if(chipPositions[j] == 0)
             {
                 blankIndex = j;
-			}
-		}
+                CalculateNeighbours();
+            }
+        }
+    }      
 
-        // Update neighbours of blank.
-        UpdateNeighbours();
-	}
-
-    // On element click
-    function OnSelection(element)
+    // Calculates the blank index neighbours.
+    function CalculateNeighbours()
     {
-        for(var i = 0; i < blankNeighbours.length; i++)
+        // Up/Down & left/right.
+        var newNeighbours = [blankIndex - 3, blankIndex + 3, CheckAdjacencyX(blankIndex, blankIndex -1), CheckAdjacencyX(blankIndex, blankIndex +1)];
+
+        // Loop through each neighbour.
+        for(var i = 0; i < newNeighbours.length; i++)
         {
-            // If selection is a neighbour of blank.
-            if(element.id == blankNeighbours[i])
-            {                
-                // Set the current blank square number to selected element number.
-                document.getElementById(blankIndex).innerHTML = element.innerHTML;
-
-                // Update blank number to the new element index number.
-                blankIndex = element.id;
-
-                // Set the new blank number to blank.
-                document.getElementById(blankIndex).innerHTML = '';
-
-                // Update neigbhour positions.
-                UpdateNeighbours();
-
-                // On blank placed in final position
-                if(blankIndex == 8)
-                {
-                    // Perform win check.
-                    WinCheck();
-				}
-
-                // Break out of loop.
-                break;
-			}
-		}
-	}
-
-    // Performs a win check
-    function WinCheck()
-    {
-        for(var i = 0; i < 8; i++)
-        {
-            // If placement does not match the grid index.
-            if(document.getElementById(i).innerHTML != i + 1)
+            // Check if the new neighbour is within boundaries.
+            if(CheckArrayBounds(newNeighbours[i]))
             {
-                return;
-		    }
-		}
+                // If there is an old neighbour.
+                if(CheckArrayBounds(blankNeighbours[i]))
+                {
+                    chipElements[newNeighbours[i]].style.borderColor ='rgba(10, 10, 10, 0.65)';
+                }
 
-        alert("Puzzle Solved!");
-	}
+                // If there is a new neighbour.
+                if(blankNeighbours[i] != newNeighbours[i])
+                {                
+                    // Swap styles.
+                    chipElements[newNeighbours[i]].style.borderColor = '#a68d0f';
+                }
+            }
+        }
+    }
 
-    // Updates the neighbour positions of blank.
-    function UpdateNeighbours()
+    // Checks if a chip x position matches another chip.
+    function CheckAdjacencyX(indexToMatch, indexToCheck)
+    {   
+        // If either index is out of array boundaries.
+        if(!CheckArrayBounds(indexToMatch) || !CheckArrayBounds(indexToCheck))
+        {
+            return -1;
+        }
+
+        // Check if the row postion matches.
+        if(chipRowIndex[indexToMatch] == chipRowIndex[indexToCheck])
+        {
+            return indexToCheck;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+    // Checks if an index is out array bounds.
+    function CheckArrayBounds(index)
     {
-        // Up and down
-        blankNeighbours[0] = parseInt(blankIndex) - 3;
-        blankNeighbours[1] = parseInt(blankIndex) + 3;
+        if(index >= 0 && index < chipPositions.length)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    
+    // Counts each passing second.
+    function Timer()
+    {
+        // Set time passed in seconds
+        timeInSeconds++;
 
-        // Left and right
-        blankNeighbours[2] = parseInt(blankIndex) - 1;
-        blankNeighbours[3] = parseInt(blankIndex) + 1;
+        // Check if time in seconds has reached a minute.
+        if(timeInSeconds >= 60)
+        {
+            // Increase minute count, reset seconds count.
+            timeInMinutes++;
+            timeInSeconds = 0;
+        }
 
-        // Update Debug Info on movement.
-        //document.getElementById("neighbours").innerHTML = blankNeighbours;
-        //document.getElementById("position").innerHTML = blankIndex;
-        document.getElementById("movement").innerHTML = parseInt(document.getElementById("movement").innerHTML) + 1;
-	}
+        // Time string in seconds to add some addtional zero if less than 10.
+        var timeSecondsString = (timeInSeconds < 10) ? '0' + timeInSeconds : timeInSeconds; 
+
+        // Set element text.
+        timerElement.innerHTML = timeInMinutes + ':' + timeSecondsString;
+    }
+    
