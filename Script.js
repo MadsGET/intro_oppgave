@@ -107,6 +107,7 @@
 
         chipPositions[blankIndex] = chipPositions[to];
         chipPositions[to] = chipPositions[blankIndex];
+        console.log("HEREEEEEEEEE");
 
         // Change blank index position.
         blankIndex = to;
