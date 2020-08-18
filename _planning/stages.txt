@@ -1,0 +1,3 @@
+Game Setup | Game | Game Over
+
+Popup Reset Popup Loss(continue?)
