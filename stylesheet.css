@@ -1,8 +1,8 @@
 ﻿body
 {
     background-color: burlywood;
-    height: 1fr;
-    width: 1fr;
+    height: 100vh;
+    width: 100vw;
     padding: 0;
     margin: 0;
 }
@@ -114,7 +114,7 @@ div.gameContainer
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    gap:8px;
+    grid-gap: 8px;
 }
 
 div.gameElement
@@ -132,6 +132,11 @@ div.gameElement
     border-radius: 5px;   
     
     font-size: 100%;
+}
+
+.moveable 
+{
+    background-color:green;
 }
 
 div.gameElement:hover, div.reset:hover

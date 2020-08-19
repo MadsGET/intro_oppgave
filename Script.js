@@ -2,16 +2,18 @@
 // Blank position within the board, and its neighbours.
 var blankIndex = 0;
 var blankNeighbours = [-1, -1, -1, -1];
-var chipPositions = [0, 1, 2, 3, 4, 5, 6, 7, 8];
+var chipPositions = [1, 2, 3, 4, 5, 6, 7, 0, 8];
 var chipRowIndex =  [0, 0, 0, 1, 1, 1, 2, 2, 2]
 var chipElements = [];
-var winCount = 0;
 
-// Counter variables
+// Time variables
 var useMinuteDisplay = false;
 var timeInSeconds = 0, timeInMinutes = 0;
 var timerElement;
+
+// Movement variables.
 var movementCount = 0;
+var movementCountElement;
 
 // Game modifiers
 var useRandomShuffle = true;
@@ -25,6 +27,7 @@ function OnPageLoaded()
 {
     // Setup element references
     timerElement = document.getElementById('timeCount');
+    movementCountElement = document.getElementById('movementCount');
 
     // Start time counter
     setInterval(Timer, 1000);
@@ -79,12 +82,6 @@ function SetupGame()
             blankIndex = j;
             CalculateNeighbours();
         }
-
-        // Setup win count
-        if (chipPositions[j] == (j+1))
-        {
-            winCount++;
-        }
     }
 }      
 
@@ -100,6 +97,8 @@ function MoveChip(newPosition)
             // Swap blank with the new position.
             SwapBlankPosition(newPosition);
             CalculateNeighbours();
+            OnMovement();
+            WinCheck();
             return;
         }
     }
@@ -108,6 +107,7 @@ function MoveChip(newPosition)
 // Swaps chip positions.
 function SwapBlankPosition(position)
 {
+    // Setup index and array positions.
     var indexA = position, indexB = blankIndex;
     var valueA = chipPositions[indexA];
     var valueB = chipPositions[indexB];
@@ -149,7 +149,7 @@ function CalculateNeighbours()
             if(blankNeighbours[i] != newNeighbours[i])
             {                
                 // Swap styles.
-                chipElements[newNeighbours[i]].style.borderColor = '#a68d0f';
+                chipElements[newNeighbours[i]].style.borderColor = '#964B00';
             }
         }
     }
@@ -164,15 +164,27 @@ function OnMovement()
     // Increase movement count.
     movementCount++;
 
-    // Check if game loss
+    // Set movement count text.
+    movementCountElement.innerText = 'Movement: ' + movementCount;
 
+    // Check if game loss
 }
 
-function CalculateWinCount()
+function WinCheck()
 {
-    // Is the game won?
+    if (blankIndex == 8)
+    {
+        // Loop through each neighbour and check if player has won.
+        for (var i = 0; i < chipPositions.length -1; i++)
+        {
+            if (chipPositions[i] != (i + 1))
+            {
+                return;
+            }
+        }
 
-    // SCREENS | Intro | Game +(Want to finish?) +(reset)| Outro 
+        alert('Game Won');
+    }
 }
 
 // Resets border color of indexed chip
