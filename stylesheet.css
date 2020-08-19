@@ -130,13 +130,12 @@ div.gameElement
     width: 1fr;
     border: 6px solid  rgba(10, 10, 10, 0.65);
     border-radius: 5px;   
-    
-    font-size: 100%;
+    font-size: 0%;
 }
 
-.moveable 
+.isChip 
 {
-    background-color:green;
+    opacity: 66%;
 }
 
 div.gameElement:hover, div.reset:hover

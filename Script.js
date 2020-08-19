@@ -77,10 +77,13 @@ function SetupGame()
         chipElements[j].style.backgroundImage = images[chipPositions[j]];
 
         // Set blank index.
-        if(chipPositions[j] == 0)
-        {
+        if (chipPositions[j] == 0) {
             blankIndex = j;
             CalculateNeighbours();
+        }
+        else
+        {
+            chipElements[j].classList.toggle("isChip");
         }
     }
 }      
@@ -120,6 +123,10 @@ function SwapBlankPosition(position)
     chipElements[indexA].style.backgroundImage = images[valueB];
     chipElements[indexB].style.backgroundImage = images[valueA];
 
+    // Toggle isChip css class.
+    chipElements[indexA].classList.toggle('isChip');
+    chipElements[indexB].classList.toggle('isChip');
+
     // Change blank index position.
     blankIndex = indexA;
 }
@@ -149,7 +156,8 @@ function CalculateNeighbours()
             if(blankNeighbours[i] != newNeighbours[i])
             {                
                 // Swap styles.
-                chipElements[newNeighbours[i]].style.borderColor = '#964B00';
+                chipElements[newNeighbours[i]].style.borderColor = 'tan';
+                //#964B00
             }
         }
     }
