@@ -3,11 +3,11 @@
 <header>
 	<meta charset="utf-8" />
 	<link rel="stylesheet" type="text/css" href="styleGameSetup.css" />
-	<script src="scriptGameSetup"></script>
+	<script src="scriptGameSetup.js"></script>
 </header>
 
 <html lang="no-EN">
-<body>
+<body onload="SetPreset(2)">
 	<div style="height:15%; width: 0px"></div>
 	<hr />
 		<br />
@@ -17,13 +17,13 @@
 					<h1>Game Setup</h1>
 				</div>
 				<div class="mainContent">
+
 					<!--Dropdown to set gamemode (none, easy, medium, hard)-->
 					<p style="text-align:center; margin-left:0;">Preset Settings</p>
-
 					<div class="presetContainer">
 
 						<div class="leftContainer">
-							<button class="buttonSmall" style="float:right">
+							<button class="buttonSmall" style="float:right" onclick="SelectPreset(-1)">
 								<
 							</button>
 						</div>
@@ -37,7 +37,7 @@
 						</div>
 
 						<div class="rightContainer">
-							<button class="buttonSmall" style="float:left">
+							<button class="buttonSmall" style="float:left" onclick="SelectPreset(+1)">
 								>
 							</button>
 						</div>
@@ -47,10 +47,10 @@
 					<div>
 						<p>Movement Settings</p>
 						<label for="movementLimit">Use Movement Limit</label>
-						<input id="movementLimit" type="checkbox" onchange="movementBox.style.display = 'inherit';"/>
+						<input id="movementLimit" type="checkbox" onchange="ToggleBox(this, 'movementBox'); SetPreset(0);"/>
 						<div id="movementBox" style="display:none">
 							<label id="moveLabel"for="moveInput">Limit</label> 
-							<input id="moveInput" class="inputBox" type="text" value="100"/>
+							<input id="moveInput" class="inputBox" type="text" value="100" onkeydown="SetPreset(0)"/>
 						</div>
 					</div>
 					<hr />
@@ -58,10 +58,10 @@
 					<div>
 						<p>Time Settings</p>
 						<label for="timeLimit">Use Time Limit</label>
-						<input id="timeLimit" type="checkbox" />
+						<input id="timeLimit" type="checkbox" onchange="ToggleBox(this, 'timeBox'); SetPreset(0);"/>
 						<div id="timeBox" style="display:none">
 							<label id="timeLabel" for="moveInput">Limit</label>
-							<input id="timeInput" class="inputBox" type="text" value="10" />
+							<input id="timeInput" class="inputBox" type="text" value="10" onkeydown="SetPreset(0)"/>
 						</div>
 					</div>
 					<hr />
@@ -69,14 +69,14 @@
 					<div>
 						<p>Other Settings</p>
 						<label for="useRandom">Use Random Numbers</label>
-						<input id="useRandom" type="checkbox" />
+						<input id="useRandom" type="checkbox" onchange="SetPreset(0)"/>
 					</div>
 
 				</div>
 				<div class="footer">
 
 					<div class="buttonContainer" style="width:100%">
-						<button style="margin-top:5%; width:50%">
+						<button style="margin-top:5%; width:50%"; onclick="StartGame()">
 							Start
 						</button>
 					</div>

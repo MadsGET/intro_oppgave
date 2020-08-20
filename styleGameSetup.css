@@ -134,11 +134,13 @@ button {
 	color: snow;
 }
 
-	.buttonSmall:hover {
-		background-color: grey;
-	}
+.buttonSmall:hover 
+{
+	background-color: grey;
+}
 
-.presetField {
+.presetField 
+{
 	border: 1px solid black;
 	background-color: dimgray;
 	height: 95%;
@@ -146,7 +148,8 @@ button {
 	margin: auto;
 }
 
-.inputBox {
+.inputBox 
+{
 	float: initial;
 	width: 48px;
 	height: 16px;

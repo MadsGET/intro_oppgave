@@ -25,6 +25,8 @@ var images = [];
 // On Page Loaded
 function OnPageLoaded()
 {
+    alert(window.localStorage.getItem('moveLimit'));
+
     // Setup element references
     timerElement = document.getElementById('timeCount');
     movementCountElement = document.getElementById('movementCount');
