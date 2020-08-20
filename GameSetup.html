@@ -1,60 +1,97 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <title>Game Setup</title>
 <header>
 	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="styleGameSetup.css" />
+	<script src="scriptGameSetup"></script>
 </header>
 
-<style>
-	body 
-	{
-		background-color: burlywood;
-		height: 99vh;
-		width: 100vw;
-		padding: 0;
-		margin: 0;
-	}
-
-	button {
-		margin: auto;
-		margin-top: 2.5%;
-		height: 64px;
-		width: 128px;
-	}
-
-	.content 
-	{
-		margin: auto;
-		height: 60%;
-		width: 28%;
-		background-color: khaki;
-	}
-
-	.header, .mainContent, .footer, .button
-	{
-		box-sizing:border-box;
-		border: 2px solid black;
-	}
-
-</style>
-
 <html lang="no-EN">
-	<body>
-		<div style="height:15%; width: 0px"></div>
-		<hr />
-			<div class="content">
+<body>
+	<div style="height:15%; width: 0px"></div>
+	<hr />
+		<br />
+			<div class="content background">
 
-				<div class="header" style="height:16.6%">
-					<h1 style="text-align:center">Game Setup</h1>
+				<div class="header">
+					<h1>Game Setup</h1>
 				</div>
-				<div class="mainContent" style="height:66.6%">
+				<div class="mainContent">
+					<!--Dropdown to set gamemode (none, easy, medium, hard)-->
+					<p style="text-align:center; margin-left:0;">Preset Settings</p>
+
+					<div class="presetContainer">
+
+						<div class="leftContainer">
+							<button class="buttonSmall" style="float:right">
+								<
+							</button>
+						</div>
+
+						<div class="middleContainer">
+							<div class="presetField">
+
+								<div id="presetText" style="color:snow; text-align:center; margin-top:6px">Medium</div>
+
+							</div>
+						</div>
+
+						<div class="rightContainer">
+							<button class="buttonSmall" style="float:left">
+								>
+							</button>
+						</div>
+					</div>
+					<hr />
+					<!--Movement settings-->
+					<div>
+						<p>Movement Settings</p>
+						<label for="movementLimit">Use Movement Limit</label>
+						<input id="movementLimit" type="checkbox" onchange="movementBox.style.display = 'inherit';"/>
+						<div id="movementBox" style="display:none">
+							<label id="moveLabel"for="moveInput">Limit</label> 
+							<input id="moveInput" class="inputBox" type="text" value="100"/>
+						</div>
+					</div>
+					<hr />
+					<!--Time settings-->
+					<div>
+						<p>Time Settings</p>
+						<label for="timeLimit">Use Time Limit</label>
+						<input id="timeLimit" type="checkbox" />
+						<div id="timeBox" style="display:none">
+							<label id="timeLabel" for="moveInput">Limit</label>
+							<input id="timeInput" class="inputBox" type="text" value="10" />
+						</div>
+					</div>
+					<hr />
+					<!--Other settings-->
+					<div>
+						<p>Other Settings</p>
+						<label for="useRandom">Use Random Numbers</label>
+						<input id="useRandom" type="checkbox" />
+					</div>
 
 				</div>
-				<div class="footer" style="height:16.6%">
-					<button> Start Game </button>
-					<!--<button style="float:right; margin-right: 15%;"></button>-->
-				</div>
+				<div class="footer">
 
+					<div class="buttonContainer" style="width:100%">
+						<button style="margin-top:5%; width:50%">
+							Start
+						</button>
+					</div>
+
+					<!-- Two Button Setup
+						<div class="buttonContainer" style="float:left;">
+							<button></button>
+						</div>
+						<div class="buttonContainer"style="float:right;">
+							<button></button>
+						</div>
+					-->
+				</div>
 			</div>
-		<hr />
-	</body>
+		<br />
+	<hr />
+</body>
 </html>
