@@ -10,10 +10,12 @@ var chipElements = [];
 var useMinuteDisplay = false;
 var timeInSeconds = 0, timeInMinutes = 0;
 var timerElement;
+var timeLimit;
 
 // Movement variables.
 var movementCount = 0;
 var movementCountElement;
+var moveLimit;
 
 // Game modifiers
 var useRandomShuffle = true;
@@ -25,11 +27,22 @@ var images = [];
 // On Page Loaded
 function OnPageLoaded()
 {
-    alert(window.localStorage.getItem('moveLimit'));
-
     // Setup element references
     timerElement = document.getElementById('timeCount');
     movementCountElement = document.getElementById('movementCount');
+
+    // Fetch stored time limit.
+    var fetchedTimeLimit = window.localStorage.getItem('timeLimit');
+    timeLimit = (fetchedTimeLimit != null) ? parseInt(fetchedTimeLimit) : 0;
+
+    // Fetch stored move limit, and set text.
+    var fetchedMoveLimit = window.localStorage.getItem('moveLimit');
+    moveLimit = (fetchedMoveLimit != null) ? parseInt(fetchedMoveLimit) : 0;
+    if (moveLimit != null && moveLimit != 0) movementCountElement.innerText += '/' + moveLimit;
+
+    // Fetch random setting.
+    var fetchedRandomSetting = window.localStorage.getItem('randomLimit');
+    useRandomShuffle = (fetchedRandomSetting == '0') ? 0 : 1;
 
     // Start time counter
     setInterval(Timer, 1000);
@@ -174,10 +187,20 @@ function OnMovement()
     // Increase movement count.
     movementCount++;
 
-    // Set movement count text.
-    movementCountElement.innerText = 'Movement: ' + movementCount;
+    // Movement limit string.
+    var moveLimitString = (moveLimit != null && moveLimit != 0) ? "/" + moveLimit : '';
 
-    // Check if game loss
+    // Set movement count text.
+    movementCountElement.innerText = 'Movement: ' + movementCount + moveLimitString;
+
+    // Check for loss
+    if (moveLimit != 0)
+    {
+        if (movementCount == moveLimit)
+        {
+            alert('Game Lost'); 
+        }
+    }
 }
 
 function WinCheck()
@@ -195,6 +218,11 @@ function WinCheck()
 
         alert('Game Won');
     }
+}
+
+function GameLoss()
+{
+    // Check if the player wants to finish the game
 }
 
 // Resets border color of indexed chip
@@ -251,9 +279,16 @@ function Timer()
     }
 
     // Time string in seconds to add some addtional zero if less than 10.
-    var timeSecondsString = (timeInSeconds < 10) ? '0' + timeInSeconds : timeInSeconds; 
+    var timeSecondsString = (timeInSeconds < 10) ? '0' + timeInSeconds : timeInSeconds;
+    var timeLimitString = (timeLimit != null && timeLimit != 0) ? "/" + timeLimit + ":00" : "";
 
     // Set element text.
-    timerElement.innerHTML = timeInMinutes + ':' + timeSecondsString;
+    timerElement.innerHTML = timeInMinutes + ':' + timeSecondsString + timeLimitString;
+
+    // Game loss
+    if (timeInMinutes == timeLimit)
+    {
+        alert('Game Lost');
+    }
 }
     

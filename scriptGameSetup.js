@@ -46,14 +46,14 @@ function SelectPreset(indexMovement)
 // Set preset selection.
 function SetPreset(index)
 {
-	if (selectedPreset == index)
-	{
-		return;
-	}
-
 	// Set text and index.
 	presetText.innerText = gamePresetNames[index];
 	selectedPreset = index;
+
+	if (selectedPreset == 0)
+	{
+		return;
+	}
 
 	// Load settings.
 	SetPresetSettings(gamePresets[index]);
@@ -82,8 +82,26 @@ function StartGame()
 	if (selectedPreset == 0)
 	{
 		// Check Move Limit
+		if (movementBox.style.display == 'inherit') {
+			moveSetting = moveInput.value;
+		}
+		else
+		{
+			moveSetting = 0;
+		}
+
 		// Check Time Limit
+		if (timeBox.style.display == 'inherit')
+		{
+			moveSetting = timeBox.value;
+		}
+		else
+		{
+			timeSetting = 0;
+		}
+
 		// Check Random setting
+		randomSetting = (useRandom.checked) ? 1 : 0;
 	}
 
 	window.localStorage.setItem('moveLimit', moveSetting);
