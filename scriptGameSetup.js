@@ -82,8 +82,10 @@ function StartGame()
 	if (selectedPreset == 0)
 	{
 		// Check Move Limit
-		if (movementBox.style.display == 'inherit') {
+		if (movementBox.style.display == 'inherit')
+		{
 			moveSetting = moveInput.value;
+			alert(moveInput.value);
 		}
 		else
 		{
@@ -93,7 +95,8 @@ function StartGame()
 		// Check Time Limit
 		if (timeBox.style.display == 'inherit')
 		{
-			moveSetting = timeBox.value;
+			timeSetting = timeInput.value;
+			alert(timeInput.value);
 		}
 		else
 		{
