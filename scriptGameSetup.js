@@ -110,5 +110,5 @@ function StartGame()
 	window.sessionStorage.setItem('timeLimit', timeSetting);
 	window.sessionStorage.setItem('randomLimit', randomSetting);
 
-	window.location.href = "https://madsget.github.io/intro_oppgave/game.html";
+	window.location.href = "https://madsget.github.io/intro_oppgave/Game.html";
 }
