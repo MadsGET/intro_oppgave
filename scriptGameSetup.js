@@ -85,7 +85,6 @@ function StartGame()
 		if (movementBox.style.display == 'inherit')
 		{
 			moveSetting = moveInput.value;
-			alert(moveInput.value);
 		}
 		else
 		{
@@ -96,7 +95,6 @@ function StartGame()
 		if (timeBox.style.display == 'inherit')
 		{
 			timeSetting = timeInput.value;
-			alert(timeInput.value);
 		}
 		else
 		{
