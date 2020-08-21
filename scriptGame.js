@@ -32,16 +32,16 @@ function OnPageLoaded()
     movementCountElement = document.getElementById('movementCount');
 
     // Fetch stored time limit.
-    var fetchedTimeLimit = window.localStorage.getItem('timeLimit');
+    var fetchedTimeLimit = window.sessionStorage.getItem('timeLimit');
     timeLimit = (fetchedTimeLimit != null) ? parseInt(fetchedTimeLimit) : 0;
 
     // Fetch stored move limit, and set text.
-    var fetchedMoveLimit = window.localStorage.getItem('moveLimit');
+    var fetchedMoveLimit = window.sessionStorage.getItem('moveLimit');
     moveLimit = (fetchedMoveLimit != null) ? parseInt(fetchedMoveLimit) : 0;
     if (moveLimit != null && moveLimit != 0) movementCountElement.innerText += '/' + moveLimit;
 
     // Fetch random setting.
-    var fetchedRandomSetting = window.localStorage.getItem('randomLimit');
+    var fetchedRandomSetting = window.sessionStorage.getItem('randomLimit');
     useRandomShuffle = (fetchedRandomSetting == '0') ? 0 : 1;
 
     // Start time counter
@@ -194,15 +194,13 @@ function OnMovement()
     movementCountElement.innerText = 'Movement: ' + movementCount + moveLimitString;
 
     // Check for loss
-    if (moveLimit != 0)
+    if (moveLimit != 0 && movementCount == moveLimit)
     {
-        if (movementCount == moveLimit)
-        {
-            alert('Game Lost'); 
-        }
+        GameOver(false);
     }
 }
 
+// Win Check
 function WinCheck()
 {
     if (blankIndex == 8)
@@ -216,13 +214,23 @@ function WinCheck()
             }
         }
 
-        alert('Game Won');
+        GameOver(true);
     }
 }
 
-function GameLoss()
+// On Game Over
+function GameOver(gameWon)
 {
     // Check if the player wants to finish the game
+
+
+    // Create result data.
+    window.sessionStorage.setItem('timeResult', timeInMinutes + ':' + timeInSeconds + '/' + timeLimit + ':00');
+    window.sessionStorage.setItem('moveResult', movementCount + '/' + moveLimit);
+    window.sessionStorage.setItem('gameResult', gameWon);
+
+    // Goto Game Summary
+    window.location.href = "GameSummary.html";
 }
 
 // Resets border color of indexed chip
@@ -288,7 +296,7 @@ function Timer()
     // Game loss
     if (timeInMinutes == timeLimit)
     {
-        alert('Game Lost');
+        GameOver(false);
     }
 }
     

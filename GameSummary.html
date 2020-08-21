@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<title>Game Summary</title>
+<header>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="styleGameSetup.css" />
+</header>
+
+<style>
+	h3 
+	{
+		margin-top:5%;
+		color:burlywood;
+	}
+
+	.postive
+	{
+		color:lawngreen;
+	}
+
+	.negative 
+	{
+		color:red;
+	}
+
+	h3, .postive, .negative 
+	{
+		text-align:center;
+	}
+
+</style>
+
+<html lang="no-EN">
+<body onload="OnPageLoaded()">
+	<div style="height:15%; width: 0px"></div>
+	<hr />
+	<br />
+	<div class="content background">
+		<div class="header">
+			<h1>Game Lost</h1>
+		</div>
+		<div class="mainContent">
+			<h1 style="margin-top:0">Better luck next time!</h1>
+			<h3>Time spent</h3>
+			<div id="timePassed"></div>
+			<h3>Movement Amount</h3>
+			<div id="moveUsed"></div>
+			<h3>Used random numbers</h3>
+			<div id="usedRandomNumbers"></div>
+		</div>
+		<div class="footer">
+				<div class="buttonContainer" style="float:left;">
+					<button>New Game</button>
+				</div>
+				<div class="buttonContainer"style="float:right;">
+					<button>Try Again</button>
+				</div>
+		</div>
+	</div>
+	<br />
+	<hr />
+</body>
+</html>
+
+<script>
+
+	var positiveMessages = ["You did it!", "Great Job!", "You're the best!"];
+	var negativeMessages = ["We cant all be winners.", "Take a break!", "Better luck next time!"];
+
+	function OnPageLoaded()
+	{
+		// Fetch session data.
+		var timeResult = window.sessionStorage.getItem('timeResult');
+		var moveResult = window.sessionStorage.getItem('moveResult');
+		var gameResult = window.sessionStorage.getItem('gameResult');
+		var usedRandom = window.sessionStorage.getItem('randomLimit');
+
+		// Setup negative/postive colors.
+		var classToUse = (gameResult) ? 'positive' : 'negative';
+
+		var timeElement = document.getElementById('timePassed');
+		alert(classToUse);
+	}
+
+</script>
