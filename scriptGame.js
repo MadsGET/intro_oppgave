@@ -233,7 +233,7 @@ function GameOver(gameWon)
     window.sessionStorage.setItem('gameResult', gameWon);
 
     // Goto Game Summary
-    window.location.href = "GameSummary.html";
+    window.location.href = "https://madsget.github.io/intro_oppgave/GameSummary.html";
 }
 
 // Resets border color of indexed chip
