@@ -104,9 +104,11 @@ function StartGame()
 		randomSetting = (useRandom.checked) ? 1 : 0;
 	}
 
+	// Clear storage before applying new data.
+	window.sessionStorage.clear();
 	window.sessionStorage.setItem('moveLimit', moveSetting);
 	window.sessionStorage.setItem('timeLimit', timeSetting);
 	window.sessionStorage.setItem('randomLimit', randomSetting);
 
-	window.location.href = "game.html";
+	window.location.replace = "game.html";
 }

@@ -224,10 +224,12 @@ function GameOver(gameWon)
     // Check if the player wants to finish the game
 
     var timeSecondsString = (timeInSeconds < 10) ? '0' + timeInSeconds : timeInSeconds;
+    var timeLimitString = (timeLimit != 0) ? timeLimit + ':00' : '';
+    var moveLimitString = (moveLimit != 0) ? '/' + moveLimit : '';
 
     // Create result data.
-    window.sessionStorage.setItem('timeResult', timeInMinutes + ':' + timeSecondsString + '/' + timeLimit + ':00');
-    window.sessionStorage.setItem('moveResult', movementCount + '/' + moveLimit);
+    window.sessionStorage.setItem('timeResult', timeInMinutes + ':' + timeSecondsString + timeLimitString);
+    window.sessionStorage.setItem('moveResult', movementCount + moveLimitString);
     window.sessionStorage.setItem('gameResult', gameWon);
 
     // Goto Game Summary
@@ -295,7 +297,7 @@ function Timer()
     timerElement.innerHTML = timeInMinutes + ':' + timeSecondsString + timeLimitString;
 
     // Game loss
-    if (timeInMinutes == timeLimit)
+    if (timeLimit != 0 && timeInMinutes == timeLimit)
     {
         GameOver(false);
     }
@@ -303,6 +305,6 @@ function Timer()
 
 function RestartGame()
 {
-    window.location.href = "Game.html";
+    window.location.reload();
 }
     
