@@ -223,9 +223,10 @@ function GameOver(gameWon)
 {
     // Check if the player wants to finish the game
 
+    var timeSecondsString = (timeInSeconds < 10) ? '0' + timeInSeconds : timeInSeconds;
 
     // Create result data.
-    window.sessionStorage.setItem('timeResult', timeInMinutes + ':' + timeInSeconds + '/' + timeLimit + ':00');
+    window.sessionStorage.setItem('timeResult', timeInMinutes + ':' + timeSecondsString + '/' + timeLimit + ':00');
     window.sessionStorage.setItem('moveResult', movementCount + '/' + moveLimit);
     window.sessionStorage.setItem('gameResult', gameWon);
 
@@ -298,5 +299,10 @@ function Timer()
     {
         GameOver(false);
     }
+}
+
+function RestartGame()
+{
+    window.location.href = "Game.html";
 }
     

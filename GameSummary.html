@@ -12,7 +12,7 @@
 		color:burlywood;
 	}
 
-	.postive
+	.positive
 	{
 		color:lawngreen;
 	}
@@ -22,7 +22,7 @@
 		color:red;
 	}
 
-	h3, .postive, .negative 
+	h3, .positive, .negative 
 	{
 		text-align:center;
 	}
@@ -36,10 +36,10 @@
 	<br />
 	<div class="content background">
 		<div class="header">
-			<h1>Game Lost</h1>
+			<h1 id="header">Game Lost</h1>
 		</div>
 		<div class="mainContent">
-			<h1 style="margin-top:0">Better luck next time!</h1>
+			<h1 id="motivational"style="margin-top:0">Better luck next time!</h1>
 			<h3>Time spent</h3>
 			<div id="timePassed"></div>
 			<h3>Movement Amount</h3>
@@ -49,10 +49,10 @@
 		</div>
 		<div class="footer">
 				<div class="buttonContainer" style="float:left;">
-					<button>New Game</button>
+					<button onclick="NewGame();">New Game</button>
 				</div>
 				<div class="buttonContainer"style="float:right;">
-					<button>Try Again</button>
+					<button onclick="Restart();">Try Again</button>
 				</div>
 		</div>
 	</div>
@@ -63,8 +63,8 @@
 
 <script>
 
-	var positiveMessages = ["You did it!", "Great Job!", "You're the best!"];
-	var negativeMessages = ["We cant all be winners.", "Take a break!", "Better luck next time!"];
+	var positiveMessages = ["You did it!", "Great Job!", "You're the best!", "I cant belive you did it!"];
+	var negativeMessages = ["We cant all be winners.", "Take a break!", "Better luck next time!", "I just dont know what to say."];
 
 	function OnPageLoaded()
 	{
@@ -75,10 +75,43 @@
 		var usedRandom = window.sessionStorage.getItem('randomLimit');
 
 		// Setup negative/postive colors.
-		var classToUse = (gameResult) ? 'positive' : 'negative';
+		var classToUse = (gameResult == "true") ? 'positive' : 'negative';
 
+		// Get elements
 		var timeElement = document.getElementById('timePassed');
-		alert(classToUse);
+		var moveElement = document.getElementById('moveUsed');
+		var randomElement = document.getElementById('usedRandomNumbers');
+		var motivationalElement = document.getElementById('motivational');
+
+		// Set style
+		timeElement.classList.add(classToUse);
+		moveElement.classList.add(classToUse);
+		randomElement.classList.add(classToUse);
+		motivationalElement.classList.add(classToUse);
+
+		// Set values
+		timeElement.innerText = timeResult;
+		moveElement.innerText = moveResult;
+		randomElement.innerText = (usedRandom == true) ? 'Yes' : 'No';
+
+		// Set motivational text.
+		var arrayToUse = (gameResult == 'true') ? positiveMessages : negativeMessages;
+		document.getElementById('motivational').innerText = arrayToUse[Math.floor(Math.random() * arrayToUse.length)];
+
+		// Set heading
+		document.getElementById('header').innerText = (gameResult == 'true') ? 'Game Won!' : 'Game Lost!';
+	}
+
+
+	function Restart()
+	{
+		window.location.href = "Game.html";
+	}
+
+	function NewGame()
+	{
+		window.sessionStorage.clear();
+		window.location.href = "GameSetup.html";
 	}
 
 </script>
